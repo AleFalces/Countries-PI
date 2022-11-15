@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { Op } = require("sequelize");
 const { db, Country, TuristActivities } = require("../db");
 const controller = require("../controller/index.js");
 
@@ -26,24 +27,28 @@ router.get("/Countries/:paramsId", async (req, res) => {
 			},
 			include: [TuristActivities],
 		});
-		res.status(200).json(!findCountry ? "country not found" : findCountry);
+		res.status(200).json(findCountry);
 	} catch (err) {
-		res.status(400).json({ error: "asi no e" });
+		res.status(400).json({ error: err });
 	}
 });
 
 // // Busqueda x name
-router.get("/getCountryByName", async (req, res) => {
-	const { countryName } = req.query;
-	try {
-		const findName = await Country.findOne({
-			where: {
-				name: countryName,
-			},
-		});
-		res.status(200).json(!findName ? "Name not found" : findName);
-	} catch (err) {
-		res.status(400).json({ Error: err });
+router.get("/countryName", async (req, res) => {
+	const name = req.query.name;
+	if (name) {
+		try {
+			const findName = await Country.findAll({
+				where: {
+					name: { [Op.iLike]: "%" + name + "%" },
+				},
+			});
+			res.status(200).json(!findName.length ? "Country not found" : findName);
+		} catch (err) {
+			res.status(400).json({ Error: err });
+		}
+	} else {
+		res.status(400).json({ Error: "Missing Query" });
 	}
 });
 
