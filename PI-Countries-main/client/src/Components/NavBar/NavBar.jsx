@@ -7,8 +7,8 @@ export const NavBar = () => {
 			<Link classname="linkHome" to="/home">
 				<button>Home</button>
 			</Link>
-			<Link classname="createActivities" to="/CreateActivitis">
-				<button>Create Activitis</button>
+			<Link classname="createActivities" to="/CreateActivities">
+				<button>Create Activities</button>
 			</Link>
 		</div>
 	);

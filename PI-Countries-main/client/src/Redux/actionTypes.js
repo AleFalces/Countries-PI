@@ -1,1 +1,2 @@
-export const GET_COUNTRIES = "GET_COUNTRIES";
+export const GET_ALL_COUNTRIES = "GET_ALL_COUNTRIES";
+export const GET_COUNTRY_BY_ID = "GET_COUNTRY_BY_ID";

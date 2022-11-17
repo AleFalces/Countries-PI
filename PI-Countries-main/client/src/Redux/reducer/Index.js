@@ -1,21 +1,29 @@
-import * as actions from "../actionTypes";
+import { GET_ALL_COUNTRIES, GET_COUNTRY_BY_ID } from "../actionTypes";
 
 const initialState = {
 	allCountries: [],
 	countries: [],
 	continents: [],
 	actualPage: 1,
-	countriesDetail: {},
+	Detail: {},
 };
 
-const rootReducer = (state = initialState, { type, payload }) => {
-	switch (type) {
-		case actions.GET_COUNTRIES:
+const RootReducer = (state = initialState, action) => {
+	switch (action.type) {
+		case GET_ALL_COUNTRIES:
 			return {
 				...state,
-				allCountries: payload.countries,
-				continents: payload.continents,
-				countries: payload.countries,
+				allCountries: action.payload.countries,
+				continents: action.payload.continents,
+				countries: action.payload.countries,
 			};
+		case GET_COUNTRY_BY_ID:
+			return {
+				...state,
+				countriesDetail: action.payload,
+			};
+		default:
+			return state;
 	}
 };
+export default RootReducer;
