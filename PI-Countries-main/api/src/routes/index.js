@@ -18,7 +18,7 @@ router.get("/Countries", async (req, res) => {
 });
 
 //Busqueda x id
-router.get("/CountryDetails/:paramsId", async (req, res) => {
+router.get("/Countries/:paramsId", async (req, res) => {
 	const { paramsId } = req.params;
 	try {
 		const findCountry = await Country.findOne({

@@ -1,4 +1,11 @@
-import { GET_ALL_COUNTRIES, GET_COUNTRY_BY_ID } from "../actionTypes";
+import {
+	GET_ALL_COUNTRIES,
+	GET_COUNTRY_BY_ID,
+	ACTUAL_PAGE,
+	GET_COUNTRY_NAME,
+	FILTER_CONTINENTS,
+	ORDER_COUNTRIES,
+} from "../actionTypes";
 
 const initialState = {
 	allCountries: [],
@@ -17,10 +24,33 @@ const RootReducer = (state = initialState, action) => {
 				continents: action.payload.continents,
 				countries: action.payload.countries,
 			};
+		case GET_COUNTRY_NAME:
+			return {
+				...state,
+				countries: action.payload,
+				actualPage: 1,
+			};
 		case GET_COUNTRY_BY_ID:
 			return {
 				...state,
-				countriesDetail: action.payload,
+				Detail: action.payload,
+			};
+		case ACTUAL_PAGE:
+			return {
+				...state,
+				actualPage: action.payload,
+			};
+		case FILTER_CONTINENTS:
+			return {
+				...state,
+				countries: action.payload,
+				actualPage: 1,
+			};
+		case ORDER_COUNTRIES:
+			return {
+				...state,
+				countries: action.payload,
+				actualPage: 1,
 			};
 		default:
 			return state;

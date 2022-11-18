@@ -16,7 +16,7 @@ function App() {
 				exact
 				path="/CreateActivities"
 				component={CreateActivities}></Route>
-			<Route exact path="/CountryDetails/:paramsId" component={Details}></Route>
+			<Route exact path="/Countries/:paramsId" component={Details}></Route>
 		</div>
 	);
 }

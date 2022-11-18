@@ -6,32 +6,28 @@ import { CountryDetails } from "../../Redux/actions";
 
 export const Details = () => {
 	const dispatch = useDispatch();
-	const { countryId } = useParams();
-	const countryDetail = useSelector((state) => state.countriesDetail);
+	const { paramsId } = useParams();
+	const Detail = useSelector((state) => state.Detail);
 
 	useEffect(() => {
-		dispatch(CountryDetails(countryId));
-	}, [countryId, dispatch]);
+		dispatch(CountryDetails(paramsId));
+	}, [dispatch]);
 
 	return (
 		<>
-			<img
-				className="card_detail_image"
-				src={countryDetail?.flag}
-				alt={countryDetail?.name}
-			/>
-			<h1>Name: {countryDetail?.name}</h1>
-			<h2>Capital: {countryDetail?.capital}</h2>
-			<p>id: {countryDetail?.id}</p>
-			<p>Subregion: {countryDetail?.subregion}</p>
-			<p>Area: {countryDetail?.area}</p>
-			<p>Population: {countryDetail.population}</p>
-			<ul>
-				Activities:
-				{countryDetail.TuristActivities?.map((el) => (
-					<li key={el.id}>{el.name}</li>
-				))}
-			</ul>
+			<div className="CountryDetails">
+				<img
+					className="card_detail_image"
+					src={Detail.flag}
+					alt={Detail.name}
+				/>
+				<h1>Name: {Detail.name}</h1>
+				<h2>Capital: {Detail.capital}</h2>
+				<h3>Continent:{Detail.continents}</h3>
+				<p>Subregion: {Detail.subregion}</p>
+				<p>Area: {Detail.area}</p>
+				<p>Population: {Detail.population}</p>
+			</div>
 		</>
 	);
 };
