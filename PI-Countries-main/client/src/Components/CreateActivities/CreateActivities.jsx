@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getCountries } from "../../Redux/actions";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 function validations(input) {
 	let errors = {};
@@ -11,15 +12,21 @@ function validations(input) {
 	if (!input.name) {
 		errors.name = "Name must be provided";
 	}
+	if (!input.duration) {
+		errors.duration = "Please chose Duration";
+	}
 
 	if (isNaN(input.difficulty)) {
-		errors.difficulty = "Only numbers are allowed";
+		errors.difficulty = "Difficulty: Only numbers are allowed";
 	}
 	if (isNaN(input.duration)) {
-		errors.duration = "Only numbers are allowed";
+		errors.duration = "Duration: Only numbers are allowed";
 	}
-	if (input.difficulty > 10 || input.difficulty < 1) {
-		errors.difficulty = "The difficulty must be between 1 and 10";
+	if (input.difficulty > 5 || input.difficulty < 1) {
+		errors.difficulty = "The difficulty must be between 1 and 5";
+	}
+	if (input.duration > 24 || input.duration < 1) {
+		errors.duration = "The activity must last between 1 and 24 hours";
 	}
 	if (
 		input.season !== "summer" &&
@@ -27,8 +34,7 @@ function validations(input) {
 		input.season !== "autum" &&
 		input.season !== "spring"
 	) {
-		errors.season =
-			'"in season onely select :summer", "winter", "autumn", "spring"';
+		errors.season = '"Please choose : "summer", "winter", "autumn" or "spring"';
 	}
 
 	return errors;
@@ -36,6 +42,7 @@ function validations(input) {
 
 export const CreateActivities = () => {
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const allCountries = useSelector((state) => state.countries);
 
 	useEffect(() => {
@@ -50,15 +57,11 @@ export const CreateActivities = () => {
 	});
 
 	const [errors, setErrors] = useState({});
+
 	const handleChoose = (e) => {
 		setSelectCountry([...selectCountry, e.target.value]);
 	};
 	const [selectCountry, setSelectCountry] = useState([]);
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		postActivities({ ...input, countries: selectCountry });
-	};
 
 	const handleChange = (e) => {
 		setInput({
@@ -71,21 +74,30 @@ export const CreateActivities = () => {
 				[e.target.name]: e.target.value,
 			})
 		);
+		console.log(input, selectCountry);
 	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		postActivities({ ...input, countries: selectCountry });
+		alert("Activity created successfully!");
+		setInput({ name: "", difficulty: "", duration: "", season: "" });
+		history.push("/home");
+	};
+
+	const handleReset = () => {
+		setInput({ name: "", difficulty: "", duration: "", season: "" });
+		setErrors({});
+		setSelectCountry([]);
+	};
+
 	const postActivities = async (formData) => {
 		try {
-			if (
-				Object.values(input).every((el) => Boolean(el)) &&
-				selectCountry.length
-			) {
-				const activities = await axios.post(
-					"http://localhost:3001/createActivities",
-					formData
-				);
-				console.log(activities);
-			} else {
-				console.log("NO LLENARON LOS INPUTA", input);
-			}
+			const activities = await axios.post(
+				"http://localhost:3001/createActivities",
+				formData
+			);
+			console.log(activities);
 		} catch (err) {
 			console.log(err.message);
 		}
@@ -107,7 +119,7 @@ export const CreateActivities = () => {
 				<input
 					onChange={handleChange}
 					placeholder="Activity Name"
-					value={input.value}
+					value={input.name}
 					name="name"
 					type="text"
 				/>
@@ -115,14 +127,14 @@ export const CreateActivities = () => {
 				<input
 					onChange={handleChange}
 					placeholder="Dificulty 1 to 5"
-					value={input.value}
+					value={input.difficulty}
 					name="difficulty"
 					type="text"
 				/>
 				<label>Duration:</label>
 				<input
 					onChange={handleChange}
-					value={input.value}
+					value={input.duration}
 					placeholder="Duration in hours"
 					name="duration"
 					type="text"
@@ -130,7 +142,7 @@ export const CreateActivities = () => {
 				<label>Season:</label>
 				<input
 					onChange={handleChange}
-					value={input.value}
+					value={input.season}
 					placeholder="Time in year"
 					name="season"
 					type="text"
@@ -140,12 +152,33 @@ export const CreateActivities = () => {
 						<li>{el}</li>
 					))}
 				</ul>
-				<input type="submit" />
+				<button className="formButtom" type="reset" onClick={handleReset}>
+					Reset all
+				</button>
+				<button
+					disabled={
+						errors.difficulty
+							? true
+							: false || errors.duration
+							? true
+							: false || errors.name
+							? true
+							: false || errors.season
+							? true
+							: false || selectCountry.length
+							? false
+							: true
+					}
+					className="formButtom"
+					type="submit">
+					Submit Activity
+				</button>
 			</form>
-			{errors.name && <p>{errors.name}</p>}
-			{errors.difficulty && <p>{errors.difficulty}</p>}
-			{errors.duration && <p>{errors.uration}</p>}
-			{errors.season && <p>{errors.season}</p>}
+
+			<p hidden={errors.name ? false : true}>{errors.name}</p>
+			<p hidden={errors.difficulty ? false : true}>{errors.difficulty}</p>
+			<p hidden={errors.duration ? false : true}>{errors.duration}</p>
+			<p hidden={errors.season ? false : true}>{errors.season}</p>
 		</>
 	);
 };

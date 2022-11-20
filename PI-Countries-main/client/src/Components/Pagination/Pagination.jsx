@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { ActualPage } from "../../Redux/actions";
-
-export const PaginationCountries = ({ countriesPerPage, countries }) => {
+import "./Pagination.css";
+export const Pagination = ({ countriesPerPage, countries }) => {
 	const dispatch = useDispatch();
 	let pages = [];
 	for (let i = 1; i <= Math.ceil(countries.length / countriesPerPage); i++) {
@@ -10,7 +10,7 @@ export const PaginationCountries = ({ countriesPerPage, countries }) => {
 	}
 	return (
 		<>
-			<ul className="content_numbers">
+			<ul className="Pages">
 				{pages.map((el) => (
 					<li
 						onClick={() => {

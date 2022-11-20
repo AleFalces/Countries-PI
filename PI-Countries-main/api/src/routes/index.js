@@ -43,7 +43,7 @@ router.get("/countryName", async (req, res) => {
 					name: { [Op.iLike]: "%" + name + "%" },
 				},
 			});
-			res.status(200).json(!findName.length ? "Country not found" : findName);
+			res.status(200).json(findName);
 		} catch (err) {
 			res.status(400).json({ Error: err });
 		}

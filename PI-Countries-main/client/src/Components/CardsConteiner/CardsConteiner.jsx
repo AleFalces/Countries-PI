@@ -8,7 +8,7 @@ import {
 	orderBy,
 } from "../../Redux/actions/index";
 import { Link } from "react-router-dom";
-import { PaginationCountries } from "./PaginationCountries";
+import { Pagination } from "../Pagination/Pagination";
 import { SearchBar } from "../SearchBar/SearchBar";
 
 export const CardsConteiner = () => {
@@ -54,19 +54,16 @@ export const CardsConteiner = () => {
 			</select>
 
 			<div Classname="Cards">
-				{currentCountriesPerPage.length
-					? currentCountriesPerPage?.map((el) => (
+				{!countries?.length
+					? "Country Not found"
+					: currentCountriesPerPage?.map((el) => (
 							<Link Link to={`/Countries/${el.id}`}>
 								<Card data={el} key={el.id} />
 							</Link>
-					  ))
-					: "Loading"}
+					  ))}
 			</div>
 			<div className="Pagination">
-				<PaginationCountries
-					countries={countries}
-					countriesPerPage={countriesPerPage}
-				/>
+				<Pagination countries={countries} countriesPerPage={countriesPerPage} />
 			</div>
 		</div>
 	);

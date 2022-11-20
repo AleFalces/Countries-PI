@@ -1,0 +1,12 @@
+li {
+	list-style: none;
+}
+
+.Pages {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 11px 14px;
+	cursor: pointer;
+}

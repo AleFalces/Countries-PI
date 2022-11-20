@@ -12,12 +12,14 @@ export const SearchBar = () => {
 	};
 	const handleSubmit = () => {
 		dispatch(CountryByName(name));
+		setName("");
 	};
 
 	return (
 		<div>
 			<input
 				type="text"
+				value={name}
 				placeholder="Search Country"
 				onChange={(e) => handleImputChange(e)}
 			/>

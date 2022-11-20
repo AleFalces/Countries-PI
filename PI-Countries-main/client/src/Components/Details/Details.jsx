@@ -30,9 +30,10 @@ export const Details = () => {
 					Activities:
 					{Detail.TuristActivities?.map((el) => (
 						<li key={el.id}>
-							<ul>{el.name}</ul>
-							<ul> {el.duration}</ul>
-							<ul>{el.season}</ul>
+							<ul>Activity :{el.name}</ul>
+							<ul> Duration :{el.duration}hs</ul>
+							<ul>Time of the year: {el.season}</ul>
+							<ul>Difficulty: {el.difficulty}★</ul>
 						</li>
 					))}
 				</ul>
