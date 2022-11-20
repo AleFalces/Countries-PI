@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { CountryDetails } from "../../Redux/actions";
-// import { CardDetails } from "./CardDetails";
 
 export const Details = () => {
 	const dispatch = useDispatch();
@@ -27,6 +26,16 @@ export const Details = () => {
 				<p>Subregion: {Detail.subregion}</p>
 				<p>Area: {Detail.area}</p>
 				<p>Population: {Detail.population}</p>
+				<ul>
+					Activities:
+					{Detail.TuristActivities?.map((el) => (
+						<li key={el.id}>
+							<ul>{el.name}</ul>
+							<ul> {el.duration}</ul>
+							<ul>{el.season}</ul>
+						</li>
+					))}
+				</ul>
 			</div>
 		</>
 	);

@@ -20,12 +20,12 @@ export const CardsConteiner = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		!allCountries.length && dispatch(getCountries());
+		!currentCountriesPerPage.length && dispatch(getCountries());
 	}, [dispatch]);
 
 	const orderTypes = ["Ascendent", "Descendent", "Poblation"];
 
-	const [countriesPerPage] = useState(10);
+	const [countriesPerPage] = useState(9);
 	const lastIndex = actualPage * countriesPerPage;
 	const firstIndex = lastIndex - countriesPerPage;
 	const currentCountriesPerPage = countries.slice(firstIndex, lastIndex);
@@ -54,13 +54,13 @@ export const CardsConteiner = () => {
 			</select>
 
 			<div Classname="Cards">
-				{!countries.length
-					? "missing countries"
-					: currentCountriesPerPage.map((el) => (
+				{currentCountriesPerPage.length
+					? currentCountriesPerPage?.map((el) => (
 							<Link Link to={`/Countries/${el.id}`}>
 								<Card data={el} key={el.id} />
 							</Link>
-					  ))}
+					  ))
+					: "Loading"}
 			</div>
 			<div className="Pagination">
 				<PaginationCountries

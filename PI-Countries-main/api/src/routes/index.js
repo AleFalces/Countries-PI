@@ -52,4 +52,30 @@ router.get("/countryName", async (req, res) => {
 	}
 });
 
+router.post("/CreateActivities", async (req, res) => {
+	const { name, difficulty, duration, season, countries } = req.body;
+
+	try {
+		const searchCountries = await Country.findAll({
+			where: {
+				name: countries,
+			},
+		});
+
+		const activity = await TuristActivities.create({
+			name,
+			difficulty,
+			duration,
+			season,
+			countries,
+		});
+
+		activity.addCountries(searchCountries);
+
+		res.status(201).json(activity);
+	} catch (err) {
+		res.status(400).json(err);
+	}
+});
+
 module.exports = router;

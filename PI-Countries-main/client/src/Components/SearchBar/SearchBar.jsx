@@ -10,7 +10,7 @@ export const SearchBar = () => {
 	const handleImputChange = (e) => {
 		setName(e.target.value);
 	};
-	const handleSubmit = (e) => {
+	const handleSubmit = () => {
 		dispatch(CountryByName(name));
 	};
 
