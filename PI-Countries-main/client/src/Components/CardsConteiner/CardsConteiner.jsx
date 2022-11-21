@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { Pagination } from "../Pagination/Pagination";
 import { SearchBar } from "../SearchBar/SearchBar";
+import "./CardsConteiner.css";
 
 export const CardsConteiner = () => {
 	const allCountries = useSelector((state) => state.allCountries);
@@ -25,7 +26,7 @@ export const CardsConteiner = () => {
 
 	const orderTypes = ["Ascendent", "Descendent", "Poblation"];
 
-	const [countriesPerPage] = useState(9);
+	const [countriesPerPage] = useState(10);
 	const lastIndex = actualPage * countriesPerPage;
 	const firstIndex = lastIndex - countriesPerPage;
 	const currentCountriesPerPage = countries.slice(firstIndex, lastIndex);

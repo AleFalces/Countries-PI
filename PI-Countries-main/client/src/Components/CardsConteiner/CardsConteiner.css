@@ -1,0 +1,26 @@
+.CardsContainer {
+	display: flex;
+	flex-wrap: wrap;
+	margin-block: 2rem;
+	gap: 2rem;
+	justify-content: center;
+}
+
+.Cards {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 1.5rem;
+	margin-top: 35px;
+	padding: 0 100px;
+}
+
+.Pagination {
+	display: flex;
+}
+
+.Searchbar {
+	display: flex;
+}

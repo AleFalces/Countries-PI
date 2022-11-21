@@ -1,0 +1,7 @@
+.CreateActivities {
+	display: flex;
+	flex-direction: column;
+	width: 200px;
+	flex-wrap: wrap;
+	font-size: 30px;
+}

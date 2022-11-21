@@ -5,31 +5,42 @@ import { useEffect } from "react";
 import { getCountries } from "../../Redux/actions";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { NavBar } from "../NavBar/NavBar";
+import "../CreateActivities/CreateActivities.css";
 
 function validations(input) {
-	let errors = {};
+	let errors = {
+		err: false,
+	};
 
 	if (!input.name) {
 		errors.name = "Name must be provided";
+		errors.err = true;
 	}
 	if (!input.duration) {
 		errors.duration = "Please chose Duration";
+		errors.err = true;
 	}
 	if (!input.countries.length) {
 		errors.countries = "Please chose contry for this activity";
+		errors.err = true;
 	}
 
 	if (isNaN(input.difficulty)) {
 		errors.difficulty = "Difficulty: Only numbers are allowed";
+		errors.err = true;
 	}
 	if (isNaN(input.duration)) {
 		errors.duration = "Duration: Only numbers are allowed";
+		errors.err = true;
 	}
 	if (input.difficulty > 5 || input.difficulty < 1) {
 		errors.difficulty = "The difficulty must be between 1 and 5";
+		errors.err = true;
 	}
 	if (input.duration > 24 || input.duration < 1) {
 		errors.duration = "The activity must last between 1 and 24 hours";
+		errors.err = true;
 	}
 	if (
 		input.season !== "summer" &&
@@ -38,6 +49,7 @@ function validations(input) {
 		input.season !== "spring"
 	) {
 		errors.season = '"Please choose : "summer", "winter", "autumn" or "spring"';
+		errors.err = true;
 	}
 
 	return errors;
@@ -86,16 +98,20 @@ export const CreateActivities = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		postActivities({ ...input });
-		setInput({
-			name: "",
-			difficulty: "",
-			duration: "",
-			season: "",
-			countries: [],
-		});
-		alert("Activity created successfully!");
-		history.push("/home");
+		if (errors.err) {
+			alert("hay errores che culiado");
+		} else {
+			postActivities({ ...input });
+			setInput({
+				name: "",
+				difficulty: "",
+				duration: "",
+				season: "",
+				countries: [],
+			});
+			alert("Activity created successfully!");
+			history.push("/home");
+		}
 	};
 
 	const handleReset = () => {
@@ -122,31 +138,8 @@ export const CreateActivities = () => {
 	};
 	return (
 		<>
+			<NavBar />
 			<form className="CreateActivities" onSubmit={handleSubmit}>
-				<label>Name:</label>
-				<input
-					onChange={handleChange}
-					placeholder="Activity Name"
-					value={input.name}
-					name="name"
-					type="text"
-				/>
-				<label>Dificulty:</label>
-				<input
-					onChange={handleChange}
-					placeholder="Dificulty 1 to 5"
-					value={input.difficulty}
-					name="difficulty"
-					type="text"
-				/>
-				<label>Duration:</label>
-				<input
-					onChange={handleChange}
-					value={input.duration}
-					placeholder="Duration in hours"
-					name="duration"
-					type="text"
-				/>
 				<select
 					onChange={(e) => {
 						handleChoose(e);
@@ -158,9 +151,42 @@ export const CreateActivities = () => {
 						</option>
 					))}
 				</select>
+				<label>Name:</label>
+				<input
+					onChange={(e) => {
+						handleChange(e);
+					}}
+					placeholder="Activity Name"
+					value={input.name}
+					name="name"
+					type="text"
+				/>
+				<label>Dificulty:</label>
+				<input
+					onChange={(e) => {
+						handleChange(e);
+					}}
+					placeholder="Dificulty 1 to 5"
+					value={input.difficulty}
+					name="difficulty"
+					type="text"
+				/>
+				<label>Duration:</label>
+				<input
+					onChange={(e) => {
+						handleChange(e);
+					}}
+					value={input.duration}
+					placeholder="Duration in hours"
+					name="duration"
+					type="text"
+				/>
+
 				<label>Season:</label>
 				<input
-					onChange={handleChange}
+					onChange={(e) => {
+						handleChange(e);
+					}}
 					value={input.season}
 					placeholder="Time in year"
 					name="season"
@@ -176,19 +202,7 @@ export const CreateActivities = () => {
 				</button>
 				<button
 					disabled={
-						errors.difficulty
-							? true
-							: false || errors.duration
-							? true
-							: false || errors.name
-							? true
-							: false || errors.season
-							? true
-							: false || errors.countries
-							? true
-							: false || !input.countries.length
-							? true
-							: false
+						errors.err ? true : false || !input.season.length ? true : false
 					}
 					className="formButtom"
 					type="submit">
