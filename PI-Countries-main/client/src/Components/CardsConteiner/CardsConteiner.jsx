@@ -20,7 +20,7 @@ export const CardsConteiner = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		!currentCountriesPerPage.length && dispatch(getCountries());
+		dispatch(getCountries());
 	}, [dispatch]);
 
 	const orderTypes = ["Ascendent", "Descendent", "Poblation"];
@@ -31,7 +31,7 @@ export const CardsConteiner = () => {
 	const currentCountriesPerPage = countries.slice(firstIndex, lastIndex);
 
 	return (
-		<div Classname="CardsContainer">
+		<div className="CardsContainer">
 			<SearchBar />
 			<select
 				onChange={(e) =>
@@ -39,7 +39,9 @@ export const CardsConteiner = () => {
 				}>
 				<option>Filter By Continents</option>
 				{continents?.map((el) => (
-					<option value={el}>{el}</option>
+					<option value={el} key={el}>
+						{el}
+					</option>
 				))}
 			</select>
 
@@ -49,16 +51,18 @@ export const CardsConteiner = () => {
 				}}>
 				<option>Order By</option>
 				{orderTypes.map((el) => (
-					<option value={el}>{el}</option>
+					<option value={el} key={el}>
+						{el}
+					</option>
 				))}
 			</select>
 
-			<div Classname="Cards">
+			<div className="Cards">
 				{!countries?.length
 					? "Country Not found"
 					: currentCountriesPerPage?.map((el) => (
-							<Link Link to={`/Countries/${el.id}`}>
-								<Card data={el} key={el.id} />
+							<Link to={`/Countries/${el.id}`} key={el.id}>
+								<Card data={el} />
 							</Link>
 					  ))}
 			</div>

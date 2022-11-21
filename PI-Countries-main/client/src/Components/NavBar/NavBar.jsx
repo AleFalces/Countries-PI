@@ -4,10 +4,10 @@ export const NavBar = () => {
 	return (
 		<div className="NavBar">
 			<h1>Countries</h1>
-			<Link classname="linkHome" to="/home">
+			<Link className="linkHome" to="/home">
 				<button>Home</button>
 			</Link>
-			<Link classname="createActivities" to="/CreateActivities">
+			<Link className="createActivities" to="/CreateActivities">
 				<button>Create Activities</button>
 			</Link>
 		</div>

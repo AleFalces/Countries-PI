@@ -15,6 +15,9 @@ function validations(input) {
 	if (!input.duration) {
 		errors.duration = "Please chose Duration";
 	}
+	if (!input.countries.length) {
+		errors.countries = "Please chose contry for this activity";
+	}
 
 	if (isNaN(input.difficulty)) {
 		errors.difficulty = "Difficulty: Only numbers are allowed";
@@ -43,7 +46,7 @@ function validations(input) {
 export const CreateActivities = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const allCountries = useSelector((state) => state.countries);
+	const allCountries = useSelector((state) => state.allCountries);
 
 	useEffect(() => {
 		!allCountries.length && dispatch(getCountries());
@@ -54,14 +57,18 @@ export const CreateActivities = () => {
 		difficulty: "",
 		duration: "",
 		season: "",
+		countries: [],
 	});
 
 	const [errors, setErrors] = useState({});
 
 	const handleChoose = (e) => {
-		setSelectCountry([...selectCountry, e.target.value]);
+		setInput({
+			...input,
+			countries: [...input.countries, e.target.value],
+		});
+		console.log(input);
 	};
-	const [selectCountry, setSelectCountry] = useState([]);
 
 	const handleChange = (e) => {
 		setInput({
@@ -74,21 +81,32 @@ export const CreateActivities = () => {
 				[e.target.name]: e.target.value,
 			})
 		);
-		console.log(input, selectCountry);
+		console.log(input, errors);
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		postActivities({ ...input, countries: selectCountry });
+		postActivities({ ...input });
+		setInput({
+			name: "",
+			difficulty: "",
+			duration: "",
+			season: "",
+			countries: [],
+		});
 		alert("Activity created successfully!");
-		setInput({ name: "", difficulty: "", duration: "", season: "" });
 		history.push("/home");
 	};
 
 	const handleReset = () => {
-		setInput({ name: "", difficulty: "", duration: "", season: "" });
+		setInput({
+			name: "",
+			difficulty: "",
+			duration: "",
+			season: "",
+			countries: [],
+		});
 		setErrors({});
-		setSelectCountry([]);
 	};
 
 	const postActivities = async (formData) => {
@@ -105,16 +123,6 @@ export const CreateActivities = () => {
 	return (
 		<>
 			<form className="CreateActivities" onSubmit={handleSubmit}>
-				<select
-					onChange={(e) => {
-						handleChoose(e);
-					}}>
-					<option value="">Countries</option>
-					{allCountries.map((el) => (
-						<option value={el.name}>{el.name}</option>
-					))}
-				</select>
-
 				<label>Name:</label>
 				<input
 					onChange={handleChange}
@@ -139,6 +147,17 @@ export const CreateActivities = () => {
 					name="duration"
 					type="text"
 				/>
+				<select
+					onChange={(e) => {
+						handleChoose(e);
+					}}>
+					<option value="">Countries</option>
+					{allCountries.map((el) => (
+						<option value={el.name} key={el.id}>
+							{el.name}
+						</option>
+					))}
+				</select>
 				<label>Season:</label>
 				<input
 					onChange={handleChange}
@@ -148,8 +167,8 @@ export const CreateActivities = () => {
 					type="text"
 				/>
 				<ul>
-					{selectCountry.map((el) => (
-						<li>{el}</li>
+					{input.countries.map((el) => (
+						<li key={el}>{el}</li>
 					))}
 				</ul>
 				<button className="formButtom" type="reset" onClick={handleReset}>
@@ -165,9 +184,11 @@ export const CreateActivities = () => {
 							? true
 							: false || errors.season
 							? true
-							: false || selectCountry.length
-							? false
-							: true
+							: false || errors.countries
+							? true
+							: false || !input.countries.length
+							? true
+							: false
 					}
 					className="formButtom"
 					type="submit">
@@ -179,6 +200,7 @@ export const CreateActivities = () => {
 			<p hidden={errors.difficulty ? false : true}>{errors.difficulty}</p>
 			<p hidden={errors.duration ? false : true}>{errors.duration}</p>
 			<p hidden={errors.season ? false : true}>{errors.season}</p>
+			<p hidden={errors.countries ? false : true}>{errors.countries}</p>
 		</>
 	);
 };
