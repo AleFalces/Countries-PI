@@ -1,9 +1,8 @@
 .CardsContainer {
-	display: flex;
 	flex-wrap: wrap;
-	margin-block: 2rem;
-	gap: 2rem;
+	gap: 1rem;
 	justify-content: center;
+	align-items: center;
 }
 
 .Cards {
@@ -12,15 +11,31 @@
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-	gap: 1.5rem;
-	margin-top: 35px;
+	gap: 1.3rem;
+	margin-top: 10px;
+	margin-bottom: 10px;
 	padding: 0 100px;
 }
 
 .Pagination {
 	display: flex;
+	justify-content: space-evenly;
 }
 
 .Searchbar {
 	display: flex;
+}
+
+.filterBar {
+	margin-top: 0px;
+	padding: 20px;
+	margin-bottom: 15px;
+	display: flex;
+	justify-content: space-evenly;
+}
+.Select {
+	text-align: center;
+	width: 200px;
+	height: 30px;
+	border-radius: 30px;
 }

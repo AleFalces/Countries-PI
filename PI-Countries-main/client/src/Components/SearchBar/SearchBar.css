@@ -1,0 +1,12 @@
+.SearchBar {
+	text-align: center;
+	width: 200px;
+	height: 30px;
+	border-radius: 2px;
+}
+.ButtonSearch {
+	text-align: center;
+	width: 100px;
+	height: 30px;
+	border-radius: 10px;
+}

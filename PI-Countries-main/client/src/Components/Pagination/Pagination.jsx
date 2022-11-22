@@ -13,6 +13,7 @@ export const Pagination = ({ countriesPerPage, countries }) => {
 			<ul className="Pages">
 				{pages.map((el) => (
 					<li
+						className="li"
 						onClick={() => {
 							dispatch(ActualPage(el));
 						}}

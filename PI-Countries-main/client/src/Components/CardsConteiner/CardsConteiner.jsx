@@ -26,38 +26,43 @@ export const CardsConteiner = () => {
 
 	const orderTypes = ["Ascendent", "Descendent", "Poblation"];
 
-	const [countriesPerPage] = useState(10);
+	const [countriesPerPage] = useState(9);
 	const lastIndex = actualPage * countriesPerPage;
 	const firstIndex = lastIndex - countriesPerPage;
 	const currentCountriesPerPage = countries.slice(firstIndex, lastIndex);
 
 	return (
 		<div className="CardsContainer">
-			<SearchBar />
-			<select
-				onChange={(e) =>
-					dispatch(filterContinent(e.target.value, allCountries))
-				}>
-				<option>Filter By Continents</option>
-				{continents?.map((el) => (
-					<option value={el} key={el}>
-						{el}
-					</option>
-				))}
-			</select>
-
-			<select
-				onChange={(e) => {
-					dispatch(orderBy(countries, e.target.value));
-				}}>
-				<option>Order By</option>
-				{orderTypes.map((el) => (
-					<option value={el} key={el}>
-						{el}
-					</option>
-				))}
-			</select>
-
+			<div className="filterBar">
+				<select
+					className="Select"
+					onChange={(e) =>
+						dispatch(filterContinent(e.target.value, allCountries))
+					}>
+					<option>Filter By Continents</option>
+					{continents?.map((el) => (
+						<option value={el} key={el}>
+							{el}
+						</option>
+					))}
+				</select>
+				<SearchBar />
+				<select
+					className="Select"
+					onChange={(e) => {
+						dispatch(orderBy(countries, e.target.value));
+					}}>
+					<option>Order By</option>
+					{orderTypes.map((el) => (
+						<option value={el} key={el}>
+							{el}
+						</option>
+					))}
+				</select>
+			</div>
+			<div className="Pagination">
+				<Pagination countries={countries} countriesPerPage={countriesPerPage} />
+			</div>
 			<div className="Cards">
 				{!countries?.length
 					? "Country Not found"

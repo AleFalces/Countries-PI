@@ -139,82 +139,122 @@ export const CreateActivities = () => {
 	return (
 		<>
 			<NavBar />
-			<form className="CreateActivities" onSubmit={handleSubmit}>
-				<select
-					onChange={(e) => {
-						handleChoose(e);
-					}}>
-					<option value="">Countries</option>
-					{allCountries.map((el) => (
-						<option value={el.name} key={el.id}>
-							{el.name}
-						</option>
-					))}
-				</select>
-				<label>Name:</label>
-				<input
-					onChange={(e) => {
-						handleChange(e);
-					}}
-					placeholder="Activity Name"
-					value={input.name}
-					name="name"
-					type="text"
-				/>
-				<label>Dificulty:</label>
-				<input
-					onChange={(e) => {
-						handleChange(e);
-					}}
-					placeholder="Dificulty 1 to 5"
-					value={input.difficulty}
-					name="difficulty"
-					type="text"
-				/>
-				<label>Duration:</label>
-				<input
-					onChange={(e) => {
-						handleChange(e);
-					}}
-					value={input.duration}
-					placeholder="Duration in hours"
-					name="duration"
-					type="text"
-				/>
+			<div className="outerBox">
+				<div className="bigBox">
+					<form className="formBox" onSubmit={handleSubmit}>
+						<select
+							className="form-section"
+							onChange={(e) => {
+								handleChoose(e);
+							}}>
+							<option value="">Countries</option>
+							{allCountries.map((el) => (
+								<option value={el.name} key={el.id}>
+									{el.name}
+								</option>
+							))}
+						</select>
+						<label>Name:</label>
+						<input
+							className="form-section"
+							onChange={(e) => {
+								handleChange(e);
+							}}
+							placeholder="Activity Name"
+							value={input.name}
+							name="name"
+							type="text"
+						/>
+						<label>Dificulty:</label>
+						<input
+							className="form-section"
+							onChange={(e) => {
+								handleChange(e);
+							}}
+							placeholder="Dificulty 1 to 5"
+							value={input.difficulty}
+							name="difficulty"
+							type="text"
+						/>
+						<label>Duration:</label>
+						<input
+							className="form-section"
+							onChange={(e) => {
+								handleChange(e);
+							}}
+							value={input.duration}
+							placeholder="Duration in hours"
+							name="duration"
+							type="text"
+						/>
 
-				<label>Season:</label>
-				<input
-					onChange={(e) => {
-						handleChange(e);
-					}}
-					value={input.season}
-					placeholder="Time in year"
-					name="season"
-					type="text"
-				/>
-				<ul>
-					{input.countries.map((el) => (
-						<li key={el}>{el}</li>
-					))}
-				</ul>
-				<button className="formButtom" type="reset" onClick={handleReset}>
-					Reset all
-				</button>
-				<button
-					disabled={
-						errors.err ? true : false || !input.season.length ? true : false
-					}
-					className="formButtom"
-					type="submit">
-					Submit Activity
-				</button>
-			</form>
+						<label>Season:</label>
+						<input
+							className="form-section"
+							onChange={(e) => {
+								handleChange(e);
+							}}
+							value={input.season}
+							placeholder="Time in year"
+							name="season"
+							type="text"
+						/>
 
-			<p hidden={errors.name ? false : true}>{errors.name}</p>
-			<p hidden={errors.difficulty ? false : true}>{errors.difficulty}</p>
-			<p hidden={errors.duration ? false : true}>{errors.duration}</p>
-			<p hidden={errors.season ? false : true}>{errors.season}</p>
-			<p hidden={errors.countries ? false : true}>{errors.countries}</p>
+						<button className="formButtom" type="reset" onClick={handleReset}>
+							Reset all
+						</button>
+						<button
+							disabled={
+								errors.err ? true : false || !input.season.length ? true : false
+							}
+							className="formButtom"
+							type="submit">
+							Submit Activity
+						</button>
+					</form>
+				</div>
+				<div className="listBox">
+					<ul>
+						{input.countries.map((el) => (
+							<li key={el}>{el}</li>
+						))}
+					</ul>
+				</div>
+				<div>
+					<p className="error" hidden={errors.name ? false : true}>
+						{errors.name}
+					</p>
+					<p className="error" hidden={errors.difficulty ? false : true}>
+						{errors.difficulty}
+					</p>
+					<p className="error" hidden={errors.duration ? false : true}>
+						{errors.duration}
+					</p>
+					<p className="error" hidden={errors.season ? false : true}>
+						{errors.season}
+					</p>
+					<p className="error" hidden={errors.countries ? false : true}>
+						{errors.countries}
+					</p>
+				</div>
+			</div>
+			<div>
+				<p className="error" hidden={errors.name ? false : true}>
+					{errors.name}
+				</p>
+				<p className="error" hidden={errors.difficulty ? false : true}>
+					{errors.difficulty}
+				</p>
+				<p className="error" hidden={errors.duration ? false : true}>
+					{errors.duration}
+				</p>
+				<p className="error" hidden={errors.season ? false : true}>
+					{errors.season}
+				</p>
+				<p className="error" hidden={errors.countries ? false : true}>
+					{errors.countries}
+				</p>
+			</div>
 		</>
 	);
 };
