@@ -46,6 +46,7 @@ export const CardsConteiner = () => {
 						</option>
 					))}
 				</select>
+
 				<SearchBar />
 				<select
 					className="Select"
@@ -64,13 +65,15 @@ export const CardsConteiner = () => {
 				<Pagination countries={countries} countriesPerPage={countriesPerPage} />
 			</div>
 			<div className="Cards">
-				{!countries?.length
-					? "Country Not found"
-					: currentCountriesPerPage?.map((el) => (
-							<Link to={`/Countries/${el.id}`} key={el.id}>
-								<Card data={el} />
-							</Link>
-					  ))}
+				{!countries?.length ? (
+					<p>Country Not found</p>
+				) : (
+					currentCountriesPerPage?.map((el) => (
+						<Link to={`/Countries/${el.id}`} key={el.id}>
+							<Card data={el} />
+						</Link>
+					))
+				)}
 			</div>
 			<div className="Pagination">
 				<Pagination countries={countries} countriesPerPage={countriesPerPage} />

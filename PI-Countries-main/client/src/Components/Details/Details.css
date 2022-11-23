@@ -1,11 +1,20 @@
 .CountryDetails {
+	margin-top: 40px;
+	height: 500px;
+	width: 900px;
 	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
+	flex-direction: row;
 	align-content: center;
-	align-items: center;
+	padding: 40px;
+	border-radius: 30px;
+	box-shadow: 0px 15px 20px 0px rgb(0 0 0 / 75%);
+	display: flex;
+	align-self: center;
+	justify-content: space-evenly;
+	margin-left: 15%;
 }
 
 .cardImage {
-	width: 200px;
+	width: 500px;
+	border-radius: 10px;
 }

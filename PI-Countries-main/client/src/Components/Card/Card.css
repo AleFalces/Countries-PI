@@ -26,6 +26,7 @@
 	height: 160px;
 	border-radius: 15px;
 	text-decoration: solid;
+	overflow: hidden;
 }
 
 .TextCard {

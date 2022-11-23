@@ -9,6 +9,7 @@ import {
 
 const initialState = {
 	allCountries: [],
+	activities: [],
 	countries: [],
 	continents: [],
 	actualPage: 1,

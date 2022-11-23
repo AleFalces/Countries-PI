@@ -11,7 +11,10 @@ const router = Router();
 //triago todos los pises
 router.get("/Countries", async (req, res) => {
 	try {
-		res.status(200).json(await controller.CountriesDB());
+		res.status(200).json({
+			countries: await controller.CountriesDB(),
+			activities: await TuristActivities.findAll(),
+		});
 	} catch (err) {
 		res.status(400).json({ error: err.messege });
 	}

@@ -1,9 +1,10 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ActualPage } from "../../Redux/actions";
 import "./Pagination.css";
 export const Pagination = ({ countriesPerPage, countries }) => {
 	const dispatch = useDispatch();
+	const activePage = useSelector((state) => state.actualPage);
 	let pages = [];
 	for (let i = 1; i <= Math.ceil(countries.length / countriesPerPage); i++) {
 		pages.push(i);
@@ -13,8 +14,9 @@ export const Pagination = ({ countriesPerPage, countries }) => {
 			<ul className="Pages">
 				{pages.map((el) => (
 					<li
-						className="li"
+						className={`li ${activePage === el ? "activePage" : ""}`}
 						onClick={() => {
+							console.log(activePage);
 							dispatch(ActualPage(el));
 						}}
 						key={el}>

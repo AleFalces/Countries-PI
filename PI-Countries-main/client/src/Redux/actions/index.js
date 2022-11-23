@@ -14,11 +14,12 @@ export const getCountries = () => async (dispatch) => {
 		dispatch({
 			type: GET_ALL_COUNTRIES,
 			payload: {
-				countries: countries.data,
+				countries: countries.data.countries,
 				continents: [
 					"AllContinents",
-					...new Set(countries.data.map((el) => el.continents)),
+					...new Set(countries.data.countries.map((el) => el.continents)),
 				],
+				activities: countries.data.activities,
 			},
 		});
 	} catch (err) {
@@ -74,15 +75,15 @@ export const orderBy = (countries, valueSelect) => (dispatch) => {
 	let array = [];
 
 	//ORDER BY NAME ASCENDENT
-	if (valueSelect == "Ascendent") {
+	if (valueSelect === "Ascendent") {
 		array = countries.sort((a, b) => a.name.localeCompare(b.name));
 	}
 	//ORDER BY NAME DESCENDENT
-	if (valueSelect == "Descendent") {
+	if (valueSelect === "Descendent") {
 		array = countries.sort((a, b) => b.name.localeCompare(a.name));
 	}
 	//ORDER BY POPULATION
-	if (valueSelect == "Poblation") {
+	if (valueSelect === "Poblation") {
 		array = countries.sort((a, b) => a.population - b.population);
 	}
 

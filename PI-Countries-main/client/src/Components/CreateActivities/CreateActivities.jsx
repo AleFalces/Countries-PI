@@ -7,6 +7,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { NavBar } from "../NavBar/NavBar";
 import "../CreateActivities/CreateActivities.css";
+import Filter from "../Filter/Filter.jsx";
 
 function validations(input) {
 	let errors = {
@@ -102,6 +103,7 @@ export const CreateActivities = () => {
 			alert("hay errores che culiado");
 		} else {
 			postActivities({ ...input });
+			handleReset();
 			setInput({
 				name: "",
 				difficulty: "",
@@ -142,18 +144,12 @@ export const CreateActivities = () => {
 			<div className="outerBox">
 				<div className="bigBox">
 					<form className="formBox" onSubmit={handleSubmit}>
-						<select
+						<Filter
 							className="form-section"
-							onChange={(e) => {
-								handleChoose(e);
-							}}>
-							<option value="">Countries</option>
-							{allCountries.map((el) => (
-								<option value={el.name} key={el.id}>
-									{el.name}
-								</option>
-							))}
-						</select>
+							arr={allCountries}
+							propName={"name"}
+							propsFunction={handleChoose}></Filter>
+
 						<label>Name:</label>
 						<input
 							className="form-section"
@@ -165,16 +161,19 @@ export const CreateActivities = () => {
 							name="name"
 							type="text"
 						/>
+
 						<label>Dificulty:</label>
 						<input
 							className="form-section"
 							onChange={(e) => {
 								handleChange(e);
 							}}
+							min="1"
+							max="5"
 							placeholder="Dificulty 1 to 5"
 							value={input.difficulty}
 							name="difficulty"
-							type="text"
+							type="number"
 						/>
 						<label>Duration:</label>
 						<input
@@ -183,9 +182,9 @@ export const CreateActivities = () => {
 								handleChange(e);
 							}}
 							value={input.duration}
-							placeholder="Duration in hours"
+							placeholder="Duration"
 							name="duration"
-							type="text"
+							type="number"
 						/>
 
 						<label>Season:</label>
@@ -216,26 +215,11 @@ export const CreateActivities = () => {
 				<div className="listBox">
 					<ul>
 						{input.countries.map((el) => (
-							<li key={el}>{el}</li>
+							<li className="list" key={el}>
+								{el}
+							</li>
 						))}
 					</ul>
-				</div>
-				<div>
-					<p className="error" hidden={errors.name ? false : true}>
-						{errors.name}
-					</p>
-					<p className="error" hidden={errors.difficulty ? false : true}>
-						{errors.difficulty}
-					</p>
-					<p className="error" hidden={errors.duration ? false : true}>
-						{errors.duration}
-					</p>
-					<p className="error" hidden={errors.season ? false : true}>
-						{errors.season}
-					</p>
-					<p className="error" hidden={errors.countries ? false : true}>
-						{errors.countries}
-					</p>
 				</div>
 			</div>
 			<div>
