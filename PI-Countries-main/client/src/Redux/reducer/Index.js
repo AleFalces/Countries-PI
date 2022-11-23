@@ -5,6 +5,7 @@ import {
 	GET_COUNTRY_NAME,
 	FILTER_CONTINENTS,
 	ORDER_COUNTRIES,
+	FILTER_ACTIVITY,
 } from "../actionTypes";
 
 const initialState = {
@@ -24,6 +25,7 @@ const RootReducer = (state = initialState, action) => {
 				allCountries: action.payload.countries,
 				continents: action.payload.continents,
 				countries: action.payload.countries,
+				activities: action.payload.activities,
 			};
 		case GET_COUNTRY_NAME:
 			return {
@@ -42,6 +44,12 @@ const RootReducer = (state = initialState, action) => {
 				actualPage: action.payload,
 			};
 		case FILTER_CONTINENTS:
+			return {
+				...state,
+				countries: action.payload,
+				actualPage: 1,
+			};
+		case FILTER_ACTIVITY:
 			return {
 				...state,
 				countries: action.payload,

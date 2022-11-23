@@ -80,7 +80,12 @@ export const CreateActivities = () => {
 			...input,
 			countries: [...input.countries, e.target.value],
 		});
-		console.log(input);
+		setErrors(
+			validations({
+				...input,
+				countries: e.target.value,
+			})
+		);
 	};
 
 	const handleChange = (e) => {
@@ -94,16 +99,24 @@ export const CreateActivities = () => {
 				[e.target.name]: e.target.value,
 			})
 		);
-		console.log(input, errors);
+		console.log(
+			{
+				...input,
+				[e.target.name]: e.target.value,
+			},
+			{
+				...input,
+				[e.target.name]: e.target.value,
+			}
+		);
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (errors.err) {
-			alert("hay errores che culiado");
+			alert("Complete all inputs please");
 		} else {
 			postActivities({ ...input });
-			handleReset();
 			setInput({
 				name: "",
 				difficulty: "",

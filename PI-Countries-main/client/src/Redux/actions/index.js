@@ -5,6 +5,7 @@ import {
 	GET_COUNTRY_NAME,
 	FILTER_CONTINENTS,
 	ORDER_COUNTRIES,
+	FILTER_ACTIVITY,
 } from "../actionTypes";
 import axios from "axios";
 
@@ -71,10 +72,22 @@ export const filterContinent = (filterContinent, countries) => (dispatch) => {
 	});
 };
 
+export const filterActivities = (valueSelect, allCountries) => (dispatch) => {
+	let filterByActivities = allCountries.filter((el) =>
+		el.TuristActivities.some((activity) => activity.name === valueSelect)
+	);
+
+	dispatch({
+		type: FILTER_ACTIVITY,
+		payload: filterByActivities,
+	});
+};
+
 export const orderBy = (countries, valueSelect) => (dispatch) => {
 	let array = [];
 
 	//ORDER BY NAME ASCENDENT
+
 	if (valueSelect === "Ascendent") {
 		array = countries.sort((a, b) => a.name.localeCompare(b.name));
 	}

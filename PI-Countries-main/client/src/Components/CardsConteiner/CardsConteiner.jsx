@@ -6,6 +6,7 @@ import {
 	getCountries,
 	filterContinent,
 	orderBy,
+	filterActivities,
 } from "../../Redux/actions/index";
 import { Link } from "react-router-dom";
 import { Pagination } from "../Pagination/Pagination";
@@ -17,6 +18,7 @@ export const CardsConteiner = () => {
 	const countries = useSelector((state) => state.countries);
 	const continents = useSelector((state) => state.continents);
 	const actualPage = useSelector((state) => state.actualPage);
+	const activities = useSelector((state) => state.activities);
 
 	const dispatch = useDispatch();
 
@@ -25,8 +27,8 @@ export const CardsConteiner = () => {
 	}, [dispatch]);
 
 	const orderTypes = ["Ascendent", "Descendent", "Poblation"];
-
 	const [countriesPerPage] = useState(9);
+
 	const lastIndex = actualPage * countriesPerPage;
 	const firstIndex = lastIndex - countriesPerPage;
 	const currentCountriesPerPage = countries.slice(firstIndex, lastIndex);
@@ -39,28 +41,41 @@ export const CardsConteiner = () => {
 					onChange={(e) =>
 						dispatch(filterContinent(e.target.value, allCountries))
 					}>
-					<option>Filter By Continents</option>
+					<option hidden>Filter By Continent</option>
 					{continents?.map((el) => (
 						<option value={el} key={el}>
 							{el}
 						</option>
 					))}
 				</select>
+				<select
+					className="Select"
+					onChange={(e) =>
+						dispatch(filterActivities(e.target.value, allCountries))
+					}>
+					<option hidden>Filter By Activity</option>
+					{activities.map((el) => (
+						<option value={el.name} key={el.id}>
+							{el.name}
+						</option>
+					))}
+				</select>
 
-				<SearchBar />
 				<select
 					className="Select"
 					onChange={(e) => {
 						dispatch(orderBy(countries, e.target.value));
 					}}>
-					<option>Order By</option>
+					<option hidden>Order By</option>
 					{orderTypes.map((el) => (
 						<option value={el} key={el}>
-							{el}
+							Order: {el}
 						</option>
 					))}
 				</select>
+				<SearchBar />
 			</div>
+
 			<div className="Pagination">
 				<Pagination countries={countries} countriesPerPage={countriesPerPage} />
 			</div>
