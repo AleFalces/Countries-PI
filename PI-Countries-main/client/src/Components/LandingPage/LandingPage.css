@@ -1,0 +1,24 @@
+.Landing {
+	height: 100vh;
+	background-image: url("../assets/Untitled-design-2020-05-11T151927.497-760x475@2x.png");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	background-color: wheat;
+	display: flex;
+	align-content: center;
+	justify-content: center;
+	align-items: center;
+}
+
+.Button {
+	width: 90px;
+	height: 60px;
+	border-radius: 20px;
+	font-size: larger;
+}
+.Button:hover {
+	background-color: var(--button-hover);
+	color: rgb(236, 233, 240);
+}

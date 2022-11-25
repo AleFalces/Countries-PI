@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../LandingPage/LandingPage.css";
 
 export const LandingPage = () => {
 	return (
@@ -7,7 +8,7 @@ export const LandingPage = () => {
 			<div className="Landing">
 				<h1 className="titleLanding">Welecome</h1>
 				<Link to="/home">
-					<button className="Button">Enter</button>
+					<button className="Button">Go Trip</button>
 				</Link>
 			</div>
 		</div>

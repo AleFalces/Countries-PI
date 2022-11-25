@@ -6,6 +6,8 @@ import {
 	FILTER_CONTINENTS,
 	ORDER_COUNTRIES,
 	FILTER_ACTIVITY,
+	NEXT_PAGE,
+	PREV_PAGE,
 } from "../actionTypes";
 import axios from "axios";
 
@@ -103,5 +105,19 @@ export const orderBy = (countries, valueSelect) => (dispatch) => {
 	dispatch({
 		type: ORDER_COUNTRIES,
 		payload: [...array],
+	});
+};
+export const Prev = (actualPage) => (dispatch) => {
+	let next = actualPage - 1;
+	dispatch({
+		type: PREV_PAGE,
+		payload: next,
+	});
+};
+export const Next = (actualPage) => (dispatch) => {
+	let next = actualPage + 1;
+	dispatch({
+		type: NEXT_PAGE,
+		payload: next,
 	});
 };

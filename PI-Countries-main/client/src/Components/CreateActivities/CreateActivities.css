@@ -1,10 +1,10 @@
 .outerBox {
-	height: 50vh;
+	height: 63vh;
 	display: flex;
 	align-items: flex-start;
 	justify-content: space-around;
 	flex-direction: row;
-	margin-bottom: 50px;
+	margin-bottom: 30px;
 	gap: 40px;
 }
 .bigBox {
@@ -21,7 +21,7 @@
 	text-align: left;
 	font-size: 22px;
 	position: relative;
-	margin-block: 40px;
+	margin-block: 30px;
 }
 .listBox {
 	width: 400px;
@@ -38,6 +38,7 @@
 	width: 300px;
 	height: 40px;
 	margin-block: 5px;
+	border-radius: 30px;
 }
 .formBox {
 	display: flex;
@@ -75,10 +76,39 @@ h6 {
 .large {
 	width: 100%;
 }
+.Selectform {
+	text-align: center;
+	width: 350px;
+	margin-bottom: 10px;
+
+	height: 35px;
+	border-radius: 30px;
+}
+.SearchBar {
+	text-align: center;
+	width: 200px;
+	height: 30px;
+	border-radius: 2px;
+}
+.formButtom {
+	text-align: center;
+	width: 170px;
+	height: 30px;
+	border-radius: 30px;
+}
 
 .error {
-	margin-block: 15px;
-	margin-left: 180px;
-	color: red;
+	display: flex;
+	margin-left: 8%;
+	margin-top: 15px;
+	color: rgb(252, 32, 32);
 	font-weight: bold;
+}
+
+.errorsContainer {
+	flex-wrap: nowrap;
+	flex-direction: column;
+	display: flex;
+	width: 45%;
+	align-items: center;
 }

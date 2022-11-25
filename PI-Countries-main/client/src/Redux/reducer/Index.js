@@ -6,6 +6,8 @@ import {
 	FILTER_CONTINENTS,
 	ORDER_COUNTRIES,
 	FILTER_ACTIVITY,
+	NEXT_PAGE,
+	PREV_PAGE,
 } from "../actionTypes";
 
 const initialState = {
@@ -60,6 +62,16 @@ const RootReducer = (state = initialState, action) => {
 				...state,
 				countries: action.payload,
 				actualPage: 1,
+			};
+		case NEXT_PAGE:
+			return {
+				...state,
+				actualPage: action.payload,
+			};
+		case PREV_PAGE:
+			return {
+				...state,
+				actualPage: action.payload,
 			};
 		default:
 			return state;

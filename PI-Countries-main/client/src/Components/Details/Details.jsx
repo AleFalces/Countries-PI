@@ -17,29 +17,31 @@ export const Details = () => {
 	return (
 		<>
 			<NavBar />
+
 			<div className="CountryDetails">
-				<div className="">
-					<img className="cardImage" src={Detail.flag} alt={Detail.name} />
-					<h1> {Detail.name}</h1>
-					<h2>Capital: {Detail.capital}</h2>
+				<div className="capitalContainer">
+					<img className="cardImage" src={Detail?.flag} alt={Detail.name} />
+					<h1 className="CapAndcontinet"> {Detail.name}</h1>
+					<h2 className="CapAndcontinet">Capital: {Detail.capital}</h2>
 				</div>
-				<div>
+				<div className="capitalContainer">
 					<h3>Continent:{Detail.continents}</h3>
 					<p>Subregion: {Detail.subregion}</p>
 					<p>Area: {Detail.area}</p>
 					<p>Population: {Detail.population}</p>
-
-					<ul>
-						Activities:
-						{Detail.TuristActivities?.map((el) => (
-							<li key={el.id}>
-								<ul>Activity :{el.name}</ul>
-								<ul> Duration :{el.duration}hs</ul>
-								<ul>Time of the year: {el.season}</ul>
-								<ul>Difficulty: {el.difficulty}★</ul>
-							</li>
-						))}
-					</ul>
+					<div className="activities">
+						<ul className="ActivityList">
+							Activities:
+							{Detail.TuristActivities?.map((el) => (
+								<li key={el.id} className="ActivityList">
+									<p>Activity :{el.name}</p>
+									<p>Duration :{el.duration}hs </p>
+									<p>Time of the year: {el.season}</p>
+									<p>Difficulty: {el.difficulty}★</p>
+								</li>
+							))}
+						</ul>
+					</div>
 				</div>
 			</div>
 		</>

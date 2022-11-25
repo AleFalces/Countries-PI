@@ -23,7 +23,7 @@ function validations(input) {
 		errors.err = true;
 	}
 	if (!input.countries.length) {
-		errors.countries = "Please chose contry for this activity";
+		errors.countries = "Please chose Country for this activity";
 		errors.err = true;
 	}
 
@@ -76,10 +76,11 @@ export const CreateActivities = () => {
 	const [errors, setErrors] = useState({});
 
 	const handleChoose = (e) => {
-		setInput({
-			...input,
-			countries: [...input.countries, e.target.value],
-		});
+		if (input.countries.every((country) => country != e.target.value))
+			setInput({
+				...input,
+				countries: [...input.countries, e.target.value],
+			});
 		setErrors(
 			validations({
 				...input,
@@ -108,6 +109,22 @@ export const CreateActivities = () => {
 				...input,
 				[e.target.name]: e.target.value,
 			}
+		);
+	};
+	const HandleDelete = (e) => {
+		setInput({
+			...input,
+			countries: input.countries.filter(
+				(country) => country !== e.target.value
+			),
+		});
+		setErrors(
+			validations({
+				...input,
+				countries: input.countries.filter(
+					(country) => country !== e.target.value
+				),
+			})
 		);
 	};
 
@@ -157,15 +174,16 @@ export const CreateActivities = () => {
 			<div className="outerBox">
 				<div className="bigBox">
 					<form className="formBox" onSubmit={handleSubmit}>
+						<label>Chose Countries</label>
 						<Filter
-							className="form-section"
 							arr={allCountries}
 							propName={"name"}
-							propsFunction={handleChoose}></Filter>
+							propsFunction={handleChoose}
+							hidden></Filter>
 
 						<label>Name:</label>
 						<input
-							className="form-section"
+							className="Selectform"
 							onChange={(e) => {
 								handleChange(e);
 							}}
@@ -177,7 +195,7 @@ export const CreateActivities = () => {
 
 						<label>Dificulty:</label>
 						<input
-							className="form-section"
+							className="Selectform"
 							onChange={(e) => {
 								handleChange(e);
 							}}
@@ -190,7 +208,7 @@ export const CreateActivities = () => {
 						/>
 						<label>Duration:</label>
 						<input
-							className="form-section"
+							className="Selectform"
 							onChange={(e) => {
 								handleChange(e);
 							}}
@@ -202,7 +220,7 @@ export const CreateActivities = () => {
 
 						<label>Season:</label>
 						<input
-							className="form-section"
+							className="Selectform"
 							onChange={(e) => {
 								handleChange(e);
 							}}
@@ -211,31 +229,40 @@ export const CreateActivities = () => {
 							name="season"
 							type="text"
 						/>
-
-						<button className="formButtom" type="reset" onClick={handleReset}>
-							Reset all
-						</button>
-						<button
-							disabled={
-								errors.err ? true : false || !input.season.length ? true : false
-							}
-							className="formButtom"
-							type="submit">
-							Submit Activity
-						</button>
+						<div>
+							<button className="formButtom" type="reset" onClick={handleReset}>
+								Reset all
+							</button>
+							<button
+								disabled={
+									errors.err
+										? true
+										: false || !input.season.length
+										? true
+										: false
+								}
+								className="formButtom"
+								type="submit">
+								Submit Activity
+							</button>
+						</div>
 					</form>
 				</div>
 				<div className="listBox">
 					<ul>
-						{input.countries.map((el) => (
-							<li className="list" key={el}>
-								{el}
-							</li>
+						{input.countries.map((country) => (
+							<button
+								className="list"
+								key={country}
+								value={country}
+								onClick={(country) => HandleDelete(country)}>
+								{country}
+							</button>
 						))}
 					</ul>
 				</div>
 			</div>
-			<div>
+			<div className="errorsContainer">
 				<p className="error" hidden={errors.name ? false : true}>
 					{errors.name}
 				</p>

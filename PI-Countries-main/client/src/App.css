@@ -2,8 +2,8 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: "Noto Sans JP", sans-serif;
-	color: rgb(52, 25, 91);
+	font-family: "DynaPuff", cursive;
+	color: rgb(79, 35, 140);
 	font-weight: 100;
 }
 
@@ -17,7 +17,7 @@ h5 {
 
 .subtitle {
 	font-weight: 300;
-	color: rgb(52, 25, 91);
+	color: rgb(101, 51, 170);
 }
 
 a {
